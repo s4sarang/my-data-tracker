@@ -6,7 +6,7 @@ import morgan from 'morgan';
 import dbConfig from './config/dbConfig.js';
 import officialDetailsRoutes from './routes/officialDetailsRoutes.js';
 
-app.use(cores());
+app.use(cors());
 app.options('*', cors());
 dbConfig();
 
