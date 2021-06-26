@@ -20,5 +20,5 @@ app.use(`${api}/personalDetails`, personalDetailsRoutes);
 app.use(`${api}/users`, usersRoutes);
 
 app.listen(5000, () => {
-  console.log('Server is running on 5000!');
+  console.log('Server is running on 5000!'.cyan.underline);
 });

@@ -13,7 +13,7 @@ const getUsers = asyncHandler(async (req, res) => {
     if (getUserResponse) {
       res.status(200).json(getUserResponse);
     } else {
-      res.status(404).json({ success: false, error: 'No user found!' });
+      res.status(404).json({ success: false, error: 'User not found!' });
     }
   } catch (error) {
     res.status(500).json({ success: false, error: error });
@@ -36,7 +36,7 @@ const setUsers = asyncHandler(async (req, res) => {
     });
 
     if (setUsersResponse) {
-      res.status(200).json(setUsersResponse);
+      res.status(201).json(setUsersResponse);
     }
   } catch (error) {
     res.status(500).json({ success: false, error: error });

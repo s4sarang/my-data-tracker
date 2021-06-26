@@ -8,10 +8,10 @@ import PersonalDetails from '../models/personalDetailsModel.js';
 
 const getPersonalDetails = asyncHandler(async (req, res) => {
   try {
-    const personalDetailsResponse = await PersonalDetails.find();
+    const personalDetailsResponse = await PersonalDetails.find({});
 
-    if (personalDetails) {
-      res.status(200).json(personalDetails);
+    if (personalDetailsResponse) {
+      res.status(200).json(personalDetailsResponse);
     } else {
       res.status(404).json({ success: false, error: 'Details not found!' });
     }
@@ -28,6 +28,7 @@ const getPersonalDetails = asyncHandler(async (req, res) => {
 const setPersonalDetails = asyncHandler(async (req, res) => {
   try {
     const setPersonalDetailsResponse = await PersonalDetails.create({
+      user: req.body.user,
       address: req.body.address,
       contact: req.body.contact,
       personalEmail: req.body.personalEmail,
@@ -37,7 +38,7 @@ const setPersonalDetails = asyncHandler(async (req, res) => {
       personalBroadband: req.body.personalBroadband,
     });
     if (setPersonalDetailsResponse) {
-      res.status(200).json(setPersonalDetailsResponse);
+      res.status(201).json(setPersonalDetailsResponse);
     }
   } catch (error) {
     res.status(500).json({ success: false, error: error });

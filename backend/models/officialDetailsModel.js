@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 
 const officialDetailsSchema = mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, required: true, unique: true },
+
   ecode: {
     type: Number,
     required: true,
@@ -36,7 +38,7 @@ const officialDetailsSchema = mongoose.Schema({
 });
 
 const OfficialDetails = mongoose.model(
-  'official-details',
+  'officialdetails',
   officialDetailsSchema
 );
 

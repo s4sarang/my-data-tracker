@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const personalDetailsSchema = mongoose.Schema({
-  //   user: { type: mongoose.Schema.Types.ObjectId, required: true, unique: true },
+  user: { type: mongoose.Schema.Types.ObjectId, required: true, unique: true },
 
   address: {
     addressLineOne: { type: String, required: true },
@@ -38,7 +38,7 @@ const personalDetailsSchema = mongoose.Schema({
 });
 
 const PersonalDetails = mongoose.model(
-  'personalDetails',
+  'personaldetails',
   personalDetailsSchema
 );
 
