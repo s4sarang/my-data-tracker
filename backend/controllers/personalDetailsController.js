@@ -45,4 +45,67 @@ const setPersonalDetails = asyncHandler(async (req, res) => {
   }
 });
 
-export { getPersonalDetails, setPersonalDetails };
+//@desc Update personal details of a user
+//@route PUT /api/personalDetails/:id
+//@access Private
+//@status test purpose
+
+const updatePersonalDetailsProfile = asyncHandler(async (req, res) => {
+  let oldPersonalDetails = await PersonalDetails.findOne({
+    user: req.params.id,
+  });
+  try {
+    const updatePersonalDetailsProfileResponse =
+      await PersonalDetails.updateOne(
+        { user: req.params.id },
+        {
+          address: req.body.address || oldPersonalDetails.address,
+          contact: req.body.contact || oldPersonalDetails.contact,
+          personalEmail:
+            req.body.personalEmail || oldPersonalDetails.personalEmail,
+          dob: req.body.dob || oldPersonalDetails.dob,
+          aadhaar: req.body.aadhaar || oldPersonalDetails.aadhaar,
+          personalMobileDevice:
+            req.body.personalMobileDevice ||
+            oldPersonalDetails.personalMobileDevice,
+          personalBroadband:
+            req.body.personalBroadband || oldPersonalDetails.personalBroadband,
+        }
+      );
+    if (updatePersonalDetailsProfileResponse) {
+      res
+        .status(201)
+        .json({ success: true, message: 'Details updated successfully!' });
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, error: error });
+  }
+});
+
+//@desc Get personal details of a user
+//@route GET /api/personalDetails/:id
+//@access Private
+//@status test purpose
+const getPersonalDetailsProfile = asyncHandler(async (req, res) => {
+  try {
+    const getPersonalDetailsProfileResponse = await PersonalDetails.findOne({
+      user: req.params.id,
+    });
+
+    if (getPersonalDetailsProfileResponse) {
+      res.status(200).json(getPersonalDetailsProfileResponse);
+    } else {
+      res
+        .status(404)
+        .json({ success: false, error: "User's Personal Details not found!" });
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, error: error });
+  }
+});
+export {
+  getPersonalDetails,
+  setPersonalDetails,
+  updatePersonalDetailsProfile,
+  getPersonalDetailsProfile,
+};
