@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Users from '../models/usersModel.js';
 import bcrypt from 'bcryptjs';
+import generateWebToken from '../utils/generateToken.js';
 
 //@desc Get all users
 //@route GET /api/users
@@ -20,7 +21,7 @@ const getUsers = asyncHandler(async (req, res) => {
   }
 });
 
-//@desc SER all users
+//@desc SET all users
 //@route PUT /api/users
 //@access Private
 //@status test purpose
@@ -43,4 +44,26 @@ const setUsers = asyncHandler(async (req, res) => {
   }
 });
 
-export { getUsers, setUsers };
+//@desc Login
+//@route POST /api/users/login
+//@access Public
+//@status test purpose
+
+const loginUser = asyncHandler(async (req, res) => {
+  try {
+    const user = await Users.findOne({ domainID: req.body.domainID });
+
+    if (user && bcrypt.compareSync(req.body.password, user.password)) {
+      res.status(200).json({
+        domainID: req.body.domainID,
+        token: generateWebToken(user.domainID),
+      });
+    } else {
+      res.status(401).json({ success: false, error: 'Invalid credentials!' });
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, error: error });
+  }
+});
+
+export { getUsers, setUsers, loginUser };
