@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
 
 const generateWebToken = (domainID) => {
   const secret = process.env.JWT_SECRET;

@@ -1,4 +1,5 @@
 import express from 'express';
+import { protect } from '../middleware/authMiddleware.js';
 import {
   getPersonalDetails,
   setPersonalDetails,
@@ -10,8 +11,8 @@ const router = express.Router();
 
 router.route('/').get(getPersonalDetails).post(setPersonalDetails);
 router
-  .route('/:id')
-  .get(getPersonalDetailsProfile)
-  .put(updatePersonalDetailsProfile);
+  .route('/profile')
+  .get(protect, getPersonalDetailsProfile)
+  .put(protect, updatePersonalDetailsProfile);
 
 export default router;

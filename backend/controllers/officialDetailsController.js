@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import OfficialDetails from '../models/officialDetailsModel.js';
 
-//@desc Get official details of a user
+//@desc Get official details of users
 //@route GET /api/officialDetails
 //@access Public
 //@status test purpose
@@ -46,19 +46,19 @@ const setOfficialDetails = asyncHandler(async (req, res) => {
 });
 
 //@desc Update official details of a user
-//@route PUT /api/officialDetails/:id
+//@route PUT /api/officialDetails/profile
 //@access Private
 //@status test purpose
 
 const updateOfficialDetailsProfile = asyncHandler(async (req, res) => {
   let oldOfficialDetails = await OfficialDetails.findOne({
-    user: req.params.id,
+    user: req.user._id,
   });
 
   try {
     const updateOfficialDetailsProfileResponse =
       await OfficialDetails.updateOne(
-        { user: req.params.id },
+        { user: req.user._id },
         {
           ecode: req.body.ecode || oldOfficialDetails.ecode,
           officeEmail: req.body.officeEmail || oldOfficialDetails.officeEmail,
@@ -72,7 +72,7 @@ const updateOfficialDetailsProfile = asyncHandler(async (req, res) => {
             req.body.domainLaptop || oldOfficialDetails.domainLaptop,
         }
       );
-    if (updateOfficialDetailsProfile) {
+    if (updateOfficialDetailsProfileResponse) {
       res
         .status(201)
         .json({ success: true, message: 'Details updated successfully!' });
@@ -83,13 +83,13 @@ const updateOfficialDetailsProfile = asyncHandler(async (req, res) => {
 });
 
 //@desc Get official details of a user
-//@route GET /api/officialDetails/:id
+//@route GET /api/officialDetails/profile
 //@access Private
 //@status test purpose
 const getOfficialDetailsProfile = asyncHandler(async (req, res) => {
   try {
     const getOfficialDetailsProfileResponse = await OfficialDetails.findOne({
-      user: req.params.id,
+      user: req.user._id,
     });
 
     if (getOfficialDetailsProfileResponse) {

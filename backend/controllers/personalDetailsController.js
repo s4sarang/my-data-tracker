@@ -46,18 +46,18 @@ const setPersonalDetails = asyncHandler(async (req, res) => {
 });
 
 //@desc Update personal details of a user
-//@route PUT /api/personalDetails/:id
+//@route PUT /api/personalDetails/profile
 //@access Private
 //@status test purpose
 
 const updatePersonalDetailsProfile = asyncHandler(async (req, res) => {
   let oldPersonalDetails = await PersonalDetails.findOne({
-    user: req.params.id,
+    user: req.user._id,
   });
   try {
     const updatePersonalDetailsProfileResponse =
       await PersonalDetails.updateOne(
-        { user: req.params.id },
+        { user: req.user._id },
         {
           address: req.body.address || oldPersonalDetails.address,
           contact: req.body.contact || oldPersonalDetails.contact,
@@ -83,13 +83,13 @@ const updatePersonalDetailsProfile = asyncHandler(async (req, res) => {
 });
 
 //@desc Get personal details of a user
-//@route GET /api/personalDetails/:id
+//@route GET /api/personalDetails/profile
 //@access Private
 //@status test purpose
 const getPersonalDetailsProfile = asyncHandler(async (req, res) => {
   try {
     const getPersonalDetailsProfileResponse = await PersonalDetails.findOne({
-      user: req.params.id,
+      user: req.user._id,
     });
 
     if (getPersonalDetailsProfileResponse) {
