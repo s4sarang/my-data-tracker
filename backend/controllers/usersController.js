@@ -21,14 +21,14 @@ const getUsers = asyncHandler(async (req, res) => {
   }
 });
 
-//@desc SET all users
-//@route PUT /api/users
+//@desc Register all users
+//@route PUT /api/users/register
 //@access Private
 //@status test purpose
 
-const setUsers = asyncHandler(async (req, res) => {
+const registerUsers = asyncHandler(async (req, res) => {
   try {
-    const setUsersResponse = await Users.create({
+    const registerUsersResponse = await Users.create({
       fname: req.body.fname,
       lname: req.body.lname,
       domainID: req.body.domainID,
@@ -36,8 +36,8 @@ const setUsers = asyncHandler(async (req, res) => {
       isAdmin: req.body.isAdmin,
     });
 
-    if (setUsersResponse) {
-      res.status(201).json(setUsersResponse);
+    if (registerUsersResponse) {
+      res.status(201).json(registerUsersResponse);
     }
   } catch (error) {
     res.status(500).json({ success: false, error: error });
@@ -66,4 +66,4 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { getUsers, setUsers, loginUser };
+export { getUsers, registerUsers, loginUser };
