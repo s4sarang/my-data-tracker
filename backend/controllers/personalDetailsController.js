@@ -28,7 +28,7 @@ const getPersonalDetails = asyncHandler(async (req, res) => {
 const setPersonalDetails = asyncHandler(async (req, res) => {
   try {
     const setPersonalDetailsResponse = await PersonalDetails.create({
-      user: req.body.user,
+      user: req.user._id,
       address: req.body.address,
       contact: req.body.contact,
       personalEmail: req.body.personalEmail,

@@ -28,7 +28,7 @@ const getOfficialDetails = asyncHandler(async (req, res) => {
 const setOfficialDetails = asyncHandler(async (req, res) => {
   try {
     const setOfficialDetailsResponse = await OfficialDetails.create({
-      user: req.body.user,
+      user: req.user._id,
       ecode: req.body.ecode,
       officeEmail: req.body.officeEmail,
       doj: req.body.doj,

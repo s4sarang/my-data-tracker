@@ -1,5 +1,5 @@
 import express from 'express';
-import { protect } from '../middleware/authMiddleware.js';
+import { isAdmin, protect } from '../middleware/authMiddleware.js';
 import {
   getOfficialDetails,
   setOfficialDetails,
@@ -9,10 +9,11 @@ import {
 
 const router = express.Router();
 
-router.route('/').get(getOfficialDetails).post(setOfficialDetails);
+router.route('/').get(protect, isAdmin, getOfficialDetails);
 router
   .route('/profile')
   .get(protect, getOfficialDetailsProfile)
-  .put(protect, updateOfficialDetailsProfile);
+  .put(protect, updateOfficialDetailsProfile)
+  .post(protect, setOfficialDetails);
 
 export default router;
