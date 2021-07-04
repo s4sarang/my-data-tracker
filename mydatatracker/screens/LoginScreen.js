@@ -1,18 +1,33 @@
-import React from 'react';
-import { Text, View, StyleSheet, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, StyleSheet, TextInput, Button, Alert } from 'react-native';
 
 const LoginScreen = () => {
+  const [uname, setUname] = useState('');
+  const [pass, setPass] = useState('');
+
+  const loginHandler = () => {
+    Alert.alert(`uname is: ${uname}, pass is: ${pass}`);
+  };
+
   return (
     <View style={[styles.container]}>
       <Text style={{ paddingBottom: 20 }}>Login Page.</Text>
       <TextInput
-        style={[styles.textInput, styles.textInputPadding]}
+        style={styles.textInput}
         placeholder='Username'
+        onChangeText={(e) => setUname(e)}
       />
       <TextInput
-        style={[styles.textInput, styles.textInputPadding]}
+        style={styles.textInput}
         placeholder='Password'
+        onChangeText={(e) => setPass(e)}
+        secureTextEntry={true}
       />
+      <Button
+        style={{ paddingTop: 20 }}
+        title='Login'
+        onPress={loginHandler}
+      ></Button>
     </View>
   );
 };
@@ -27,8 +42,8 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     paddingBottom: 10,
     borderColor: 'grey',
-    borderRadius: 2,
     borderWidth: 2,
+    borderBottomEndRadius: 1,
     flexDirection: 'row',
   },
 });
